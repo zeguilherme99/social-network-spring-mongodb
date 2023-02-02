@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PostService {
@@ -17,5 +18,9 @@ public class PostService {
     public Post findById(String id) {
         Optional<Post> obj = postRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(id));
+    }
+
+    public Set<Post> findByTitle(String text) {
+        return postRepository.findByTitleContainingIgnoreCase(text);
     }
 }

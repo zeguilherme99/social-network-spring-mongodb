@@ -1,5 +1,6 @@
 package com.learning.socialnetwork.resources;
 
+import com.learning.socialnetwork.dto.UserDTO;
 import com.learning.socialnetwork.entities.User;
 import com.learning.socialnetwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class UserResource {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<User> findAll() {
-        return service.findAll();
+    public List<UserDTO> findAll() {
+        List<User> list = service.findAll();
+        return list.stream().map(UserDTO::new).toList();
     }
 }

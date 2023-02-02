@@ -1,6 +1,7 @@
 package com.learning.socialnetwork.resources;
 
 import com.learning.socialnetwork.dto.UserDTO;
+import com.learning.socialnetwork.entities.Post;
 import com.learning.socialnetwork.entities.User;
 import com.learning.socialnetwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -53,5 +55,12 @@ public class UserResource {
         User obj = service.fromDTO(objDTO);
         obj.setId(id);
         service.update(obj);
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    @ResponseStatus(HttpStatus.OK)
+    public Set<Post> findPost(@PathVariable String id) {
+        User obj = service.findById(id);
+        return obj.getPosts();
     }
 }

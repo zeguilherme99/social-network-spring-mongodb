@@ -1,12 +1,15 @@
 package com.learning.socialnetwork.entities;
 
 import com.learning.socialnetwork.dto.AuthorDTO;
+import com.learning.socialnetwork.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Document
 public class Post implements Serializable {
@@ -17,6 +20,8 @@ public class Post implements Serializable {
     private String title;
     private String body;
     private AuthorDTO author;
+
+    private Set<CommentDTO> comments = new HashSet<>();
 
     public Post() {
     }
@@ -67,6 +72,14 @@ public class Post implements Serializable {
 
     public void setAuthor(AuthorDTO author) {
         this.author = author;
+    }
+
+    public Set<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<CommentDTO> comments) {
+        this.comments = comments;
     }
 
     @Override

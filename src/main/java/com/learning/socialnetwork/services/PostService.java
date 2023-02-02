@@ -6,6 +6,7 @@ import com.learning.socialnetwork.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
 
@@ -22,5 +23,9 @@ public class PostService {
 
     public Set<Post> findByTitle(String text) {
         return postRepository.searchTitle(text);
+    }
+
+    public Set<Post> fullSearch(String text, Instant minDate, Instant maxDate) {
+        return postRepository.fullSearch(text, minDate, maxDate);
     }
 }

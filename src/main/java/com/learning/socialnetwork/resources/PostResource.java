@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.Set;
 
 @RestController
@@ -27,5 +28,14 @@ public class PostResource {
     public Set<Post> findByTitle(String text) {
         text = URL.decodeParam(text);
         return service.findByTitle(text);
+    }
+
+    @GetMapping(value = "/fullsearch")
+    @ResponseStatus(HttpStatus.OK)
+    public Set<Post> fullSearch(@RequestParam(value = "text", defaultValue ="") String text, @RequestParam(value = "minDate", defaultValue ="") String minDate, @RequestParam(value = "maxDate", defaultValue ="") String maxDate) {
+        text = URL.decodeParam(text);
+        Instant min = URL.convertInstant(minDate);
+        Instant max = URL.convertInstant(maxDate);
+        return service.fullSearch(text, min, max);
     }
 }

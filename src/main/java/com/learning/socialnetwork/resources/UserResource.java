@@ -46,4 +46,12 @@ public class UserResource {
     public void delete(@PathVariable String id) {
         service.delete(id);
     }
+
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody UserDTO objDTO, @PathVariable String id) {
+        User obj = service.fromDTO(objDTO);
+        obj.setId(id);
+        service.update(obj);
+    }
 }
